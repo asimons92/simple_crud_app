@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useState } from 'react';
+import { productService } from '../services/productsService';
 
 
 const apiGet = () => {
@@ -15,8 +16,11 @@ const apiGet = () => {
 function Product({ product } ) {
   return (
     <div className="product">
-      <h3>{product.name}</h3>
-      <p>{product.price}</p>
+      <ul className="product-list">
+        <p className="product-name">{product.name}</p>
+        <p className="product-price">{product.price}</p>
+      </ul>
+
     </div>
   );
 }
@@ -36,20 +40,17 @@ function ProductDisplay({ products }) {
 //main app
 export default function App() {
   const [products, setProducts] = useState([]);
-  const apiGetProducts = () => {
-    axios.get('http://localhost:3000/api/products').then((res) => {
-      console.log(res)
-      console.log(res.data)
-      setProducts(res.data);
-  
-    })
+  const getProducts = async () => {
+    const res = await productService.getAll();
+    setProducts(res.data);
   }
+  
   return (
     <div className="app">
       <h1>I am the app and I'm mostly working!</h1>
       <ProductDisplay products={products} />
       <button onClick={ apiGet }>Make API Call</button>
-      <button onClick={ apiGetProducts}>Get Products</button>
+      <button onClick={ getProducts}>Get Products</button>
     </div>
   );
 }
