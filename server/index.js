@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
@@ -7,6 +8,7 @@ const productRoute = require('./routes/product.route.js');
 
 //middleware
 app.use(express.json());
+app.use(cors());
 //middleware
 
 mongoose.connect(uri)
@@ -26,4 +28,8 @@ app.get('/', (req,res) => {
 });
 
 // Use product routes
-app.use('/api', productRoute);
+app.use('/api', (req, res, next) => {
+  console.log('Route middleware: Request path:', req.path, 'Method:', req.method);
+  next();
+});
+app.use('/api/products', productRoute);

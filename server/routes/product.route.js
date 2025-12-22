@@ -8,10 +8,16 @@ const {getProducts, getProductById, updateProduct, deleteProduct, addProduct} = 
 router.post('/', addProduct);
 
 // get all products
-router.get('/',getProducts);
+router.get('/', (req, res, next) => {
+  console.log('GET /products route hit');
+  next();
+}, getProducts);
 
 // get product by id
-router.get('/:id', getProductById);
+router.get('/:id', (req, res, next) => {
+  console.log('GET /:id route hit, id param:', req.params.id);
+  next();
+}, getProductById);
 
 // update product
 router.put('/:id', updateProduct);

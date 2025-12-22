@@ -4,6 +4,7 @@ const Product = require('../models/product.model')
 // get all products
 const getProducts = async (req,res) => {
     try{
+        console.log('getProducts controller called');
         const products = await Product.find({}); 
         res.status(200).json(products);
      } catch (error) {
@@ -15,6 +16,7 @@ const getProducts = async (req,res) => {
 const getProductById = async (req,res) => {
     try{
         const { id } = req.params;
+        console.log('getProductById controller called with id:', id);
         const product = await Product.findById(id);
         res.status(200).json(product);
 
