@@ -1,0 +1,41 @@
+.title {
+    color: brown;
+}
+
+
+
+.product-list {
+    list-style-type: none;
+}
+
+.product-display {
+    background-color: bisque;
+    padding: 5px;
+    width: 500px
+}
+
+.product {
+    display: flex;
+    width: 400px;
+    margin: 10px;
+    background-color: blanchedalmond;
+    filter:drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5))
+}
+
+.product-name {
+    color: slateblue;
+    font-weight: bold;
+}
+
+.product-price {
+    color: cadetblue;
+}
+
+
+.delete-button {
+  height: 32px;
+  margin: 10px 10px 10px auto; /* top, right, bottom, left */
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}

@@ -6,10 +6,9 @@ const dotenv = require('dotenv').config();
 const uri = process.env.MONGO_DB_URI;
 const productRoute = require('./routes/product.route.js'); 
 
-//middleware
+// Middleware
 app.use(express.json());
 app.use(cors());
-//middleware
 
 mongoose.connect(uri)
     .then(() => {
