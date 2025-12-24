@@ -11,7 +11,8 @@
 .product-display {
     background-color: bisque;
     padding: 5px;
-    width: 500px
+    width: 500px;
+    margin: 10px
 }
 
 .product {
@@ -31,11 +32,23 @@
     color: cadetblue;
 }
 
+.submit-div {
+    margin: 10px;
+}
 
-.delete-button {
+
+.delete-button,
+.edit-button {
   height: 32px;
-  margin: 10px 10px 10px auto; /* top, right, bottom, left */
+  margin: 10px 5px 10px 0;
   display: flex;
   align-items: center;
-  padding: 10px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.button-container {
+  display: flex;
+  margin-left: auto;
+  align-items: center;
 }
