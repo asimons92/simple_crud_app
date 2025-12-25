@@ -1,26 +1,48 @@
-.title {
-    color: brown;
+
+/* Global font styling - applies to entire app */
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+        sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: rgb(255, 235, 205)
 }
 
+.title {
+    color: rgb(0, 0, 0);
+}
 
+.app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
 
 .product-list {
     list-style-type: none;
 }
 
 .product-display {
-    background-color: bisque;
+    background-color: blanchedalmond;
     padding: 5px;
     width: 500px;
-    margin: 10px
+    margin: 10px;
+    flex: 1;
+    overflow-y: auto;
+    min-height: 0;
+    
 }
 
 .product {
     display: flex;
+    flex: auto;
     width: 400px;
     margin: 10px;
     background-color: blanchedalmond;
-    filter:drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5))
+    border-radius: 12px;
+    filter:drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.5))
+
 }
 
 .product-name {
@@ -34,6 +56,8 @@
 
 .submit-div {
     margin: 10px;
+    flex-shrink: 0;
+
 }
 
 
@@ -45,10 +69,27 @@
   align-items: center;
   padding: 8px 16px;
   cursor: pointer;
+  border-radius: 12px;
+  border: 0;
 }
 
 .button-container {
   display: flex;
   margin-left: auto;
   align-items: center;
+}
+
+.edit-field {
+    margin: 5px;
+}
+
+.submit-button {
+    height: 32px;
+    margin: 10px 5px 10px 0;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    cursor: pointer;
+    border-radius: 12px;
+    border: 0;
 }

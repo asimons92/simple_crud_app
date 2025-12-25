@@ -125,12 +125,11 @@ function ProductDisplay({ products, handleDelete, handleEdit }) {
 
 //main app
 export default function App() {
-  const [products, setProducts] = useState([]);
-  const [name, setName] = useState('');
-  const [price, setPrice] = useState('');
-  const [quantity, setQuantity] = useState('');
-  const [editingId, setEditingId] = useState() // intial integer?
-  const getProducts = async () => {
+  const [products, setProducts] = useState([]); // holds all products
+  const [name, setName] = useState('');         // for creating new product
+  const [price, setPrice] = useState('');       // for creating new product
+  const [quantity, setQuantity] = useState(''); // for creating new product
+  const getProducts = async () => {             // sets products to all products
     const res = await productService.getAll();
     setProducts(res.data);
   }
@@ -194,29 +193,32 @@ export default function App() {
 
   return (
     <div className="app">
-      <h1 className="title">I am the app and I'm mostly working!</h1>
+      <h1 className="title">Simple CRUD App Frontend</h1>
       <ProductDisplay products={products} handleDelete={handleDelete} handleEdit={handleEdit} />
       <div className="submit-div">
         <form onSubmit={handleSubmit}>
           <input 
+            className="edit-field"
             type="text" 
             value={name} 
             placeholder='name' 
             onChange={(e) => setName(e.target.value)} 
           />
           <input 
+            className='edit-field'
             type="text" 
             value={price} 
             placeholder='price' 
             onChange={(e) => setPrice(e.target.value)} 
           />
           <input 
+            className='edit-field'
             type="text" 
             value={quantity} 
             placeholder='quantity' 
             onChange={(e) => setQuantity(e.target.value)} 
           />
-          <button type="submit">Submit</button>
+          <button type="submit" className='submit-button'>Submit</button>
         </form>
       </div>
     </div>
