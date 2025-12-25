@@ -1,5 +1,7 @@
 const Product = require('../models/product.model')
 
+// Hardcoded owner user ID for testing
+const OWNER_USER_ID = '694d970085e6d7d6cb5350a2'; 
 
 // get all products
 const getProducts = async (req,res) => {
@@ -63,8 +65,14 @@ const deleteProduct = async (req,res) => {
 // add new product
 
 const addProduct = async (req,res) => {
+    
     try {
-        const product = await Product.create(req.body);
+        // Hardcode the owner field with the user ID for testing
+        const productData = {
+            ...req.body,
+            owner: OWNER_USER_ID //replace this with req.user._id when middleware is done
+        };
+        const product = await Product.create(productData);
         res.status(200).json(product);
     } catch (error) {
         res.status(500).json({message: error.message});
