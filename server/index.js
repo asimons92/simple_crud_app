@@ -1,14 +1,19 @@
 const express = require('express');
 const cors = require('cors');
+const jwt = require('jsonwebtoken');
 const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
 const uri = process.env.MONGO_DB_URI;
 const productRoute = require('./routes/product.route.js'); 
+const loginRoute = require('./routes/login.route.js')
 
 // Middleware
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+
+
 
 mongoose.connect(uri)
     .then(() => {
@@ -32,3 +37,4 @@ app.use('/api', (req, res, next) => {
   next();
 });
 app.use('/api/products', productRoute);
+app.use('/login',loginRoute)

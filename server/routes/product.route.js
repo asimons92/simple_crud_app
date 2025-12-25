@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../models/product.model.js');
 const {getProducts, getProductById, updateProduct, deleteProduct, addProduct} = require('../controllers/product.controller.js');
+const { auth } = require('../middleware/auth.js');
 
 
 // add new product
 router.post('/', addProduct);
 
 // get all products
-router.get('/', (req, res, next) => {
+router.get('/',auth, (req, res, next) => {
   console.log('GET /products route hit');
   next();
 }, getProducts);
