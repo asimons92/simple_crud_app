@@ -29,9 +29,31 @@ body {
     width: 500px;
     margin: 10px;
     flex: 1;
-    overflow-y: auto;
+    overflow-y: scroll;  /* Always show scrollbar */
     min-height: 0;
     
+    /* Custom scrollbar styling for better visibility */
+    scrollbar-width: thin; /* For Firefox */
+    scrollbar-color: rgba(0, 0, 0, 0.3) transparent; /* For Firefox */
+}
+
+/* Webkit scrollbar styling (Chrome, Safari, Edge) */
+.product-display::-webkit-scrollbar {
+    width: 12px; /* Width of the scrollbar */
+}
+
+.product-display::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1); /* Track color */
+    border-radius: 6px;
+}
+
+.product-display::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.3); /* Thumb color */
+    border-radius: 6px;
+}
+
+.product-display::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.5); /* Thumb color on hover */
 }
 
 .product {
