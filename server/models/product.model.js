@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const User = require('./user.model');
 
 const ProductSchema = mongoose.Schema(
     {
@@ -19,6 +20,12 @@ const ProductSchema = mongoose.Schema(
         image: {
             type: String,
             required: false
+        },
+        owner: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            required: true
+
         }
 
 
