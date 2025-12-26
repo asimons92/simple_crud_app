@@ -8,7 +8,7 @@ const api = axios.create({
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
     if (token) {
-        config.headers.Authorization = `Bearer: ${token}`;
+        config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
 });
@@ -17,12 +17,23 @@ api.interceptors.request.use((config) => {
 // brings user back to login screen
 
 api.interceptors.response.use(
-    (response) => response,
+    (response) => {
+        console.log('Not redirected to login');
+        return response;
+    },
+        
     (error) => {
+        const originalRequestUrl = error.config?.url;
         if (error.response && error.response.status === 401) {
+            if (originalRequestUrl.includes('/login') || originalRequestUrl.includes('/auth')){
+                console.log("Login failed - staying on page to show error message.");
+            } else {
             // token expired or otherwise invalic
-            localStorage.removeItem('token');
-            window.location.href = '/login';
+                localStorage.removeItem('token');
+                console.log('Redirected to login');
+                window.location.href = '/login';
+                }
+
         }
         return Promise.reject(error);
     }

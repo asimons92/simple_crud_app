@@ -1,15 +1,8 @@
-import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { productService } from '../services/productsService';
 import Login from './pages/Login';
 import { useAuth } from '../context/AuthContext';
 
-const apiGet = () => {
-  axios.get('http://localhost:3000').then((data) => {
-    //this console.log will be in our frontend console
-    console.log(data)
-  })
-}
 
 
 // each product
@@ -111,7 +104,7 @@ function Product({ product, handleDelete, handleEdit } ) {
 function ProductDisplay({ products, handleDelete, handleEdit }) {
   return (
     <div className = "product-display">
-      {products.map((product) =>
+      {products?.map((product) =>
         <Product 
           key={product._id} 
           product={product} 
@@ -131,9 +124,15 @@ export default function App() {
   const [name, setName] = useState('');         // for creating new product
   const [price, setPrice] = useState('');       // for creating new product
   const [quantity, setQuantity] = useState(''); // for creating new product
-  const getProducts = async () => {             // sets products to all products
-    const res = await productService.getAll();
-    setProducts(res.data);
+  const getProducts = async () => {   
+    try {
+      const res = await productService.getAll(); // sets products to all products
+      setProducts(res.data);
+    } catch (err) {
+      console.log("Request failed, interceptor should handle redirect");
+
+    }         
+
   }
   
   // Call getProducts when component first loads and when token is available

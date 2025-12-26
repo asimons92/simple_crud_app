@@ -1,5 +1,5 @@
 import { useState } from "react";
-import axios from "axios";
+import api from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 
 export default function Login() {
@@ -19,7 +19,7 @@ export default function Login() {
         };
 
         try {
-            const response = await axios.post('http://localhost:3000/api/auth/login', credentials);
+            const response = await api.post('/auth/login', credentials);
             
             if (response.data.token) {
                 login(response.data.token); // This updates the global state and localStorage!
