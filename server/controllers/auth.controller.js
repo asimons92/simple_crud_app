@@ -3,21 +3,45 @@ const jwt_secret = process.env.JWT_SECRET;
 const User = require('../models/user.model.js');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
+const { verifyPassword } = require('../utils/password.utils.js');
 
 const login = async (req, res) => {
-  if (!req.body || !req.body.email) {
+  if (!req.body.email) {
     return res.status(400).json({ error: 'Email is required' });
+  }
+  if (!req.body.password) {
+    return res.status(400).json({ error: 'Password is required' });
   }
 
   const email = req.body.email;
-  
+  const password = req.body.password;
+
   try {
     const user = await User.findOne({ email }).exec();
     if (!user) {
       return res.status(401).json({ error: 'Unauthorized' });
     }
-    // verify password, generate JWT token, send response here
-    res.status(200).json({ message: 'Login successful' });
+
+    const isValid = await verifyPassword(password, user.password);
+    if (!isValid) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    const token = jwt.sign(
+      { id: user._id, email: user.email, role: user.role },
+      jwt_secret,
+      { expiresIn: "1h" }
+    );
+    return res.status(200).json({
+      message: 'Login successful',
+      token,
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+        role: user.role
+      }
+    });
   } catch (error) {
     res.status(401).json({ error: 'Unauthorized' });
   }
