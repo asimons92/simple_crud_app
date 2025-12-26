@@ -120,7 +120,7 @@ function ProductDisplay({ products, handleDelete, handleEdit }) {
 
 //main app
 export default function App() {
-  const { token, loading, logout } = useAuth();
+  const { token, user, loading, logout } = useAuth();
   const [products, setProducts] = useState([]); // holds all products
   const [name, setName] = useState('');         // for creating new product
   const [price, setPrice] = useState('');       // for creating new product
@@ -213,7 +213,10 @@ export default function App() {
 
 
     <div className="app">
-      <h1 className="title">Simple CRUD App Frontend</h1>
+      <div className="nav">
+        <h1 className="title">Simple CRUD App Frontend</h1>
+        <p className="welcome-text">Welcome {user?.username || 'User'}!</p>
+      </div>
 
       <ProductDisplay products={products} handleDelete={handleDelete} handleEdit={handleEdit} />
       <div className="submit-div">

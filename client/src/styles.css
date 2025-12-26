@@ -6,12 +6,9 @@ body {
         sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    background-color: rgb(255, 235, 205)
+    background-color: #f5f7fa
 }
 
-.title {
-    color: rgb(0, 0, 0);
-}
 
 .app {
     display: flex;
@@ -19,12 +16,36 @@ body {
     height: 100vh;
 }
 
+.nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;         /* Vertically center items */
+    justify-content: space-between; /* Push title and welcome text apart */
+    background-color: #4a5568;
+    margin: 5px;
+    padding: 20px;
+    min-height: 60px;
+}
+
+.welcome-text {
+    font-size: 1.2rem;
+    color: #ffffff;
+    /* No margin-left needed now, flexbox handles spacing */
+}
+
+.title {
+    color: #ffffff;
+    /* Optionally, prevent shrinking if desired: */
+    flex-shrink: 0;
+}
+
+
 .product-list {
     list-style-type: none;
 }
 
 .product-display {
-    background-color: blanchedalmond;
+    background-color: #ffffff;
     padding: 5px;
     width: 500px;
     margin: 10px;
@@ -61,19 +82,20 @@ body {
     flex: auto;
     width: 400px;
     margin: 10px;
-    background-color: blanchedalmond;
+    background-color: #ffffff;
     border-radius: 12px;
-    filter:drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.5))
+    filter:drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    border: 1px solid #e2e8f0;
 
 }
 
 .product-name {
-    color: slateblue;
+    color: #2d3748;
     font-weight: bold;
 }
 
 .product-price {
-    color: cadetblue;
+    color: #718096;
 }
 
 .submit-div {
@@ -93,6 +115,14 @@ body {
   cursor: pointer;
   border-radius: 12px;
   border: 0;
+  background-color: #e2e8f0;
+  color: #2d3748;
+  transition: background-color 0.2s;
+}
+
+.delete-button:hover,
+.edit-button:hover {
+  background-color: #cbd5e0;
 }
 
 .button-container {
@@ -114,4 +144,11 @@ body {
     cursor: pointer;
     border-radius: 12px;
     border: 0;
+    background-color: #4a5568;
+    color: #ffffff;
+    transition: background-color 0.2s;
+}
+
+.submit-button:hover {
+    background-color: #2d3748;
 }
