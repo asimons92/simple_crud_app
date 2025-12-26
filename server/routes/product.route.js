@@ -4,12 +4,14 @@ const Product = require('../models/product.model.js');
 const {getProducts, getProductById, updateProduct, deleteProduct, addProduct} = require('../controllers/product.controller.js');
 const { auth } = require('../middleware/auth.js');
 
+// Apply auth middleware to all routes
+router.use(auth);
 
 // add new product
 router.post('/', addProduct);
 
 // get all products
-router.get('/',auth, (req, res, next) => {
+router.get('/', (req, res, next) => {
   console.log('GET /products route hit');
   next();
 }, getProducts);

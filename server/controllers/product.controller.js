@@ -8,6 +8,7 @@ const getProducts = async (req,res) => {
     try{
         console.log('getProducts controller called');
         const products = await Product.find({}); 
+        console.log("The user calling these products is:", req.user);
         res.status(200).json(products);
      } catch (error) {
          res.status(500).json({message: error.message});
