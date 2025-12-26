@@ -1,2 +1,4 @@
 node_modules
 .env
+FRONTEND_LOGIC_MAP.md
+AUTH_FLOW_MAP.md

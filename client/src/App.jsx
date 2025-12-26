@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { useState, useEffect, useRef } from 'react';
 import { productService } from '../services/productsService';
-
+import Login from './pages/Login';
+import { useAuth } from '../context/AuthContext';
 
 const apiGet = () => {
   axios.get('http://localhost:3000').then((data) => {
@@ -125,6 +126,7 @@ function ProductDisplay({ products, handleDelete, handleEdit }) {
 
 //main app
 export default function App() {
+  const { token, loading } = useAuth();
   const [products, setProducts] = useState([]); // holds all products
   const [name, setName] = useState('');         // for creating new product
   const [price, setPrice] = useState('');       // for creating new product
@@ -134,11 +136,22 @@ export default function App() {
     setProducts(res.data);
   }
   
-  // Call getProducts when component first loads
-  useEffect(() =>
-    { getProducts(); },
-    []
-  )
+  // Call getProducts when component first loads and when token is available
+  useEffect(() => {
+    if (token) {
+      getProducts();
+    }
+  }, [token])
+
+  // Show loading state while checking authentication
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  // Show login page if not authenticated
+  if (!token) {
+    return <Login />;
+  }
   
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -192,8 +205,11 @@ export default function App() {
 
 
   return (
+
+
     <div className="app">
       <h1 className="title">Simple CRUD App Frontend</h1>
+
       <ProductDisplay products={products} handleDelete={handleDelete} handleEdit={handleEdit} />
       <div className="submit-div">
         <form onSubmit={handleSubmit}>
