@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { productService } from '../services/productsService';
 import Login from './pages/Login';
 import { useAuth } from '../context/AuthContext';
+import { isTokenExpired } from '../services/api';
 
 
 
@@ -119,7 +120,7 @@ function ProductDisplay({ products, handleDelete, handleEdit }) {
 
 //main app
 export default function App() {
-  const { token, loading } = useAuth();
+  const { token, loading, logout } = useAuth();
   const [products, setProducts] = useState([]); // holds all products
   const [name, setName] = useState('');         // for creating new product
   const [price, setPrice] = useState('');       // for creating new product
@@ -137,10 +138,15 @@ export default function App() {
   
   // Call getProducts when component first loads and when token is available
   useEffect(() => {
-    if (token) {
+    if (token && isTokenExpired(token)) {
+      // Token is expired, clear it and redirect to login
+      logout();
+      window.location.href = '/login';
+    } else if (token && !isTokenExpired(token)) {
+      // Token is valid, fetch products
       getProducts();
     }
-  }, [token])
+  }, [token, logout])
 
   // Show loading state while checking authentication
   if (loading) {
