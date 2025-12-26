@@ -1,16 +1,11 @@
-import axios from 'axios';
-
+import api from './api';
 const API_URL = 'http://localhost:3000/api/products'
 
-// Helper function to get auth headers
-const getAuthHeaders = () => {
-    const token = localStorage.getItem('token');
-    return token ? { Authorization: `Bearer ${token}` } : {};
-}
+
 
 export const productService = {
-    getAll: () => axios.get(API_URL, { headers: getAuthHeaders() }),
-    create: (product) => axios.post(API_URL, product, { headers: getAuthHeaders() }),
-    delete: (id) => axios.delete(`${API_URL}/${id}`, { headers: getAuthHeaders() }),
-    update: (id, product) => axios.put(`${API_URL}/${id}`, product, { headers: getAuthHeaders() })
+    getAll: () => api.get('/products'),
+    create: (product) => api.post('/products',product),
+    delete: (id) => api.delete(`/products/${id}`),
+    update: (id, product) => api.put(`/products/${id}`, product)
 }
