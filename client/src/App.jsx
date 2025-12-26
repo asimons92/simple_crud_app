@@ -216,6 +216,12 @@ export default function App() {
       <div className="nav">
         <h1 className="title">Simple CRUD App Frontend</h1>
         <p className="welcome-text">Welcome {user?.username || 'User'}!</p>
+        <button
+          type="button"
+          onClick={logout}
+        >
+          Log Out
+        </button>
       </div>
 
       <ProductDisplay products={products} handleDelete={handleDelete} handleEdit={handleEdit} />

@@ -1,4 +1,4 @@
-import { createContext, useState, useContext, useEffect } from 'react';
+import { createContext, useState, useContext, useEffect, useCallback } from 'react';
 import { isTokenExpired } from '../services/api';
 
 const AuthContext = createContext(null);
@@ -29,11 +29,19 @@ export const AuthProvider = ({ children }) => {
         }
       };
 
-      const logout = () => {
-        localStorage.removeItem('token');
-        setToken(null);
-        setUser(null);
-      };
+      const logout = useCallback(() => {
+        try {
+          localStorage.removeItem('token');
+          setToken(null);
+          setUser(null);
+        } catch (error) {
+          // Handle localStorage errors (e.g., private browsing mode)
+          console.error('Error during logout:', error);
+          // Still clear state even if localStorage fails
+          setToken(null);
+          setUser(null);
+        }
+      }, []);
 
       return (
         <AuthContext.Provider value={{ token, user, login, logout, loading }}>
