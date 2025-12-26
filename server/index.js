@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
 const uri = process.env.MONGO_DB_URI;
 const productRoute = require('./routes/product.route.js'); 
-const loginRoute = require('./routes/login.route.js')
+const authRoute = require('./routes/auth.route.js')
 
 // Middleware
 app.use(express.json());
@@ -37,4 +37,4 @@ app.use('/api', (req, res, next) => {
   next();
 });
 app.use('/api/products', productRoute);
-app.use('/login',loginRoute)
+app.use('/api/auth', authRoute);
