@@ -2,7 +2,7 @@ import { useState } from "react";
 import api from "../../services/api";
 import { useAuth } from "../../context/AuthContext";
 
-export default function Login() {
+export default function Login({ setShowRegister }) {
     const [editEmail,setEditEmail] = useState('');
     const [editPassword,setEditPassword] = useState('');
     const [error, setError] = useState('');
@@ -48,6 +48,7 @@ export default function Login() {
                 {error && <div style={{ color: 'red' }}>{error}</div>}
                 <button type="submit">Login</button>
             </form>
+            <button type="button" onClick={() => setShowRegister(true)}>Register</button>
         </div>
     )
 }
